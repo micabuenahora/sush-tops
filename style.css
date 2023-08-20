@@ -15,7 +15,7 @@
   display: flex;
   justify-content: space-between;
   height: 12vh;
-  background-color: rgba(17, 0, 100, 0.811);
+  background-color: rgba(182, 24, 225, 0.811);
 }
 
 .navbar-logo{
@@ -37,8 +37,8 @@ cursor: pointer;
 background-size: cover;
 background-position: center;
 height: 90vh;
-background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
-url(https://i.pinimg.com/564x/63/72/43/637243bb468da1e69c4b7758343e8441.jpg)
+background-image: linear-gradient(rgba(253, 121, 242, 0.4),rgba(0,0,0,0.4)),
+url(https://i.pinimg.com/564x/29/7c/36/297c36961b695d19967957e9169d1380.jpg)
 
 }
 
@@ -69,10 +69,11 @@ margin: 30px 80px 0px 80px;
 
 .cardTops{
 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-max-width: 300px;
+max-width: 200px;
 margin: auto;
 text-align: center;
 font-family: Arial;
+border-radius: 20%;
 }
 
 .precio{
@@ -85,11 +86,12 @@ font-family: Arial;
   outline: 0;
   padding: 12px;
   color: white;
-  background-color: black;
+  background-color:rgba(176, 9, 162, 0.849);
   text-align: center;
   cursor: pointer;
   width: 100%;
   font-size: 18px;
+  border-radius: 50px;
 }
 
 .cardButton:hover{
@@ -101,7 +103,7 @@ opacity: 0.7;
   margin: 0 10%;
   max-height: 88vh;
   color: #fff;
-  background-color: #131313;
+  background-color: #6e04a2;
   display: flex;
 flex-direction: column;
 align-items: center;
@@ -118,9 +120,9 @@ scrollbar-color: none;
 }
 
 .modal-header{
-  display: flex;display: block;
+  display: flex;
   justify-content: space-around;
-  background-color: rgb(47, 45, 45);
+  background-color: rgb(81, 26, 116);
  color: #fff;
  width: 100%;
 }
@@ -134,6 +136,8 @@ scrollbar-color: none;
 }
 .modal-header-button{
   cursor:pointer;
+  top:0;
+  right: 0;
 }
 .modal-container > .modal-content {
   display: flex;
@@ -150,4 +154,22 @@ scrollbar-color: none;
   padding-top: 20px;
 }
 
+.cantidad-carrito{
+background-color: pink;
+color: black;
+border-radius: 50px;
+font-size: 12px;
+padding: 4px;
+top: 37px;
+right: 14px;
+position: absolute;
+display: none;
+}
 
+.restarCarrito{
+  cursor: pointer;
+}
+
+.sumarCarrito{
+  cursor: pointer;
+}
