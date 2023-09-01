@@ -150,9 +150,9 @@ const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     <img src="${tops.imagen}">
     <h3> ${tops.nombre}</h3>
     <p> $${tops.precio}</p>
-    <span class="restar"> - </span>
+    
     <p> cantidad: ${tops.cantidad}</p>
-    <span class="sumar"> + </span>
+    
     <p> Total: $${tops.cantidad * tops.precio}</p>
     <span class= "eliminarEncarrito"></span>
     `;
@@ -161,7 +161,7 @@ const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     /*  boton de restar en carrito */
       let restar  = modalContainer.querySelector(".restar")
      restar.addEventListener("click", () => {
-      if(tops.cantidad <= 1) {
+      if(tops.cantidad !== 1) {
          tops.cantidad--;
       }
       mostrarCarrito();
@@ -170,7 +170,7 @@ const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     /*  boton de restar en carrito */
       let sumar  = modalContainer.querySelector(".sumar")
      sumar.addEventListener("click", () => {
-      if(tops.cantidad == 1) {
+      if(tops.cantidad !== 1) {
          tops.cantidad++;
       }
       mostrarCarrito();
