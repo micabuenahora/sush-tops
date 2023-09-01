@@ -166,10 +166,10 @@ position: absolute;
 display: none;
 }
 
-.restarCarrito{
+.restar{
   cursor: pointer;
 }
 
-.sumarCarrito{
+.sumar{
   cursor: pointer;
 }

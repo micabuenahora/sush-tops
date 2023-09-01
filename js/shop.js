@@ -1,6 +1,6 @@
 /////////// productos ////////////////
 
-class Productos {   /* funcion construsctora */
+/* class Productos {   /* funcion construsctora 
     constructor (nombre, precio,stock,imagen, id,cantidad){
     this.nombre = nombre; 
     this.precio = precio;
@@ -12,19 +12,18 @@ class Productos {   /* funcion construsctora */
 
 }  
 
-/* objetos  */
+/* objetos  
 let producto1 = new Productos ("top violeta", 3200, 5,"./assets/image/violeta.jpeg",1,1)
 let producto2 = new Productos ("top azul", 3100, 4,"./assets/image/azul.jpg",2,1)
 let producto3 = new Productos ("top amarillo", 3200, 5,"./assets/image/amarillo.jpeg",3,1)
 let producto4 = new Productos ("top marron", 3200, 5,"./assets/image/marron.jpeg",4,1)
 
 
-const ListaTop = [producto1,producto2,producto3,producto4] /* array */
+const ListaTop = [producto1,producto2,producto3,producto4] /* array */ 
 
-//////////////// tienda //////////////////
+ ////////////////// tienda = donde estan las cards////////////////
 
-/* contenido del Body, cards */
-const shopContent = document.getElementById("shopContent");
+
 /* ver carrito */
 const verCarrito = document.getElementById("verCarrito");
 
@@ -35,8 +34,17 @@ const modalContainer = document.getElementById("modalContainer");
 const cantidadEnCarrito = document.getElementById("cantidadEnCarrito");
 
 
+fetch("tops.json")
+.then(response => response.json())
+.then(x => {
+
+   const productos = x.productos;
+
+   /* contenido del Body, cards */
+const shopContent = document.getElementById("shopContent");
+
 /*creo las cards y las agrego al padre content */
-ListaTop.forEach((tops)=> {
+productos.forEach((tops)=> {
  let contenidoCard = document.createElement("div")
  contenidoCard.className = "cardTops";
  contenidoCard.innerHTML =  `
@@ -45,7 +53,7 @@ ListaTop.forEach((tops)=> {
          <p  class="precio"> $${tops.precio}</p>
          `
 
-/* lo agrego */
+/* lo agrego */   
 shopContent.append(contenidoCard);
 /* creo el boton */
 let comprar = document.createElement("button")
@@ -57,7 +65,14 @@ comprar.className = "cardButton"
 contenidoCard.append(comprar);
 
 comprar.addEventListener("click", () =>{
-
+Swal.fire(
+  {
+   title: "producto agregado al carrito",
+   timer: 700,
+   showConfirmButton: false,
+}
+)
+ /* sumar cantidad */
 const repeat = carrito.some((repeatProduct) => repeatProduct.id === tops.id)
 console.log(repeat);
 
@@ -84,22 +99,32 @@ if (repeat){
 console.log(carrito)
 cantidadAtCarrito();
 guardarLocal ()
+
+
+
 });
 });
 
+})
+.catch (error => {
+alert("error al cargar los productos")
+})
+
+
+  
 /////////////// carrito ////////////////
 
 const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 /* crear modal apretando icono carrito */
-verCarrito.addEventListener("click", () =>{
+ const mostrarCarrito = () => {
     modalContainer.innerHTML = " "
     modalContainer.style.display = "flex"
     /* header del modal */ 
    const modalHeader= document.createElement("div")
    modalHeader.className = "modal-header"
     modalHeader.innerHTML =  ` 
-    <h1 class="modal-header-title">carrito.</h1>
+    <h1 class="modal-header-title">carrito</h1>
     `  /* aca lo agrego */
     modalContainer.append(modalHeader);
  
@@ -107,7 +132,7 @@ verCarrito.addEventListener("click", () =>{
     const modalbutton = document.createElement("h2")
     modalbutton.innerText = "x"
     modalbutton.className = "modal-header-button"
-    /* lo agrego */
+    /* aca lo agrego */
     modalHeader.append(modalbutton);
  
     /* apretar boton y cerrar modal */
@@ -116,7 +141,7 @@ verCarrito.addEventListener("click", () =>{
     })
  
  
- /* recorro cada uno de los elementos  */
+ /* recorro cada top */
     carrito.forEach((tops) =>{
        /*body del modal en donde van a aparecer las cards de los tops seleccionados*/
     let carritoContent = document.createElement("div")
@@ -125,11 +150,38 @@ verCarrito.addEventListener("click", () =>{
     <img src="${tops.imagen}">
     <h3> ${tops.nombre}</h3>
     <p> $${tops.precio}</p>
+    <span class="restar"> - </span>
     <p> cantidad: ${tops.cantidad}</p>
+    <span class="sumar"> + </span>
     <p> Total: $${tops.cantidad * tops.precio}</p>
+    <span class= "eliminarEncarrito"></span>
     `;
     modalContainer.append(carritoContent)
-     })
+
+    /*  boton de restar en carrito */
+      let restar  = modalContainer.querySelector(".restar")
+     restar.addEventListener("click", () => {
+      if(tops.cantidad <= 1) {
+         tops.cantidad--;
+      }
+      mostrarCarrito();
+     });
+
+    /*  boton de restar en carrito */
+      let sumar  = modalContainer.querySelector(".sumar")
+     sumar.addEventListener("click", () => {
+      if(tops.cantidad == 1) {
+         tops.cantidad++;
+      }
+      mostrarCarrito();
+     });
+
+
+
+     }) 
+     
+
+
  console.log(carrito.length);
     /* footer modal que seria el total */   
      const total = carrito.reduce((acc,top) => acc + top.precio * top.cantidad , 0 )
@@ -138,8 +190,9 @@ verCarrito.addEventListener("click", () =>{
        totalBuying.innerHTML = `total a pagar: $${total}` 
     modalContainer.append(totalBuying)
  
- });
 
+}
+ /* cantidad en carrito span */
 const cantidadAtCarrito = () => {
 cantidadEnCarrito.style.display = "block";
 
@@ -149,11 +202,14 @@ localStorage.setItem("carritoLength", JSON.stringify(carritoLength))
 cantidadEnCarrito.innerText = JSON.parse(localStorage.getItem("carritoLength"))
 };
 
+/* localStorage */
 const guardarLocal = () => {
 
   localStorage.setItem("carrito", JSON.stringify(carrito));
  
 }
+
+verCarrito.addEventListener("click",mostrarCarrito)
 
 cantidadAtCarrito()
 

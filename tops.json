@@ -1,0 +1,39 @@
+{
+"productos" : [
+{
+"nombre": "top violeta",
+"precio" : "3200",
+"stock": "5",
+"imagen": "./assets/image/violeta.jpeg",
+"id": "1",
+"cantidad": "1"
+},
+{
+"nombre": "top azul",
+"precio" : "3100",
+"stock": "4",
+"imagen": "./assets/image/azul.jpg",
+"id": "2",
+"cantidad": "1"
+},
+{
+"nombre": "top amarillo",
+"precio" : "3200",
+"stock": "5",
+"imagen": "./assets/image/amarillo.jpeg",
+"id": "3",
+"cantidad": "1"
+},
+{
+"nombre": "top marron",
+"precio" : "3200",
+"stock": "5",
+"imagen": "./assets/image/marron.jpeg",
+"id": "4",
+"cantidad": "1"
+}
+
+
+]
+
+}
