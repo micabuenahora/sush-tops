@@ -173,3 +173,7 @@ display: none;
 .sumar{
   cursor: pointer;
 }
+
+.delete-product{
+  cursor: pointer;
+}

@@ -114,7 +114,7 @@ alert("error al cargar los productos")
   
 /////////////// carrito ////////////////
 
-const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 /* crear modal apretando icono carrito */
  const mostrarCarrito = () => {
@@ -154,7 +154,7 @@ const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     <p> cantidad: ${tops.cantidad}</p>
     <span class="sumar"> + </span>
     <p> Total: $${tops.cantidad * tops.precio}</p>
-    <span class= "eliminarEncarrito"></span>
+    <span class= "delete-product"> X </span>
     `;
     modalContainer.append(carritoContent)
 
@@ -163,6 +163,7 @@ const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
      restar.addEventListener("click", () => {
       if(tops.cantidad >= 2) {
          tops.cantidad--;
+         guardarLocal();
          mostrarCarrito();
       }else{
          Swal.fire({
@@ -175,16 +176,18 @@ const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
       
      });
 
-    /*  boton de restar en carrito */
+    /*  boton de sumar en carrito */
       let sumar  = carritoContent.querySelector(".sumar")
      sumar.addEventListener("click", () => {
          tops.cantidad++;
-
+      guardarLocal();
       mostrarCarrito();
      });
 
-
-
+let eliminar = carritoContent.querySelector(".delete-product")
+eliminar.addEventListener("click", () => {
+   eliminarProducto(tops.id);
+})
      }) 
      
 
@@ -218,6 +221,17 @@ const guardarLocal = () => {
 
 verCarrito.addEventListener("click",mostrarCarrito)
 
+let eliminarProducto = (id) => {
+  let EncontrarId = carrito.find((tops) => tops.id);
+carrito = carrito.filter((carritoId) => {
+   return carritoId !== EncontrarId;
+})
+cantidadAtCarrito();
+guardarLocal();
+mostrarCarrito();
+
+}
+   
 cantidadAtCarrito()
 
 
