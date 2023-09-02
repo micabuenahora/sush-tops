@@ -159,20 +159,27 @@ const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     modalContainer.append(carritoContent)
 
     /*  boton de restar en carrito */
-      let restar  = modalContainer.querySelector(".restar")
+      let restar  = carritoContent.querySelector(".restar")
      restar.addEventListener("click", () => {
-      if(tops.cantidad !== 1) {
+      if(tops.cantidad >= 2) {
          tops.cantidad--;
+         mostrarCarrito();
+      }else{
+         Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'no se puede eliminar mas de un elemento',
+            
+          })
       }
-      mostrarCarrito();
+      
      });
 
     /*  boton de restar en carrito */
-      let sumar  = modalContainer.querySelector(".sumar")
+      let sumar  = carritoContent.querySelector(".sumar")
      sumar.addEventListener("click", () => {
-      if(tops.cantidad !== 1) {
          tops.cantidad++;
-      }
+
       mostrarCarrito();
      });
 
